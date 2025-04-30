@@ -21,7 +21,7 @@ ops.so:
 	${CC} ${CFLAGS} ops.c -fPIC -shared -o $@
 
 multiply:
-	${CC} -o $@ $@.c ops.so 
+	${CC} -o $@ $@.c io.c ops.so 
 
 attack:
 	${CC} ${LDFLAGS} -o $@ $@.c ${LDLIBS}
