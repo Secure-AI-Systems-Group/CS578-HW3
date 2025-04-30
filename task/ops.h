@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "ops.h"
-
 
 /*
  *  A function that does the matrix multiplication.

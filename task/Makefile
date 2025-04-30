@@ -3,13 +3,13 @@ CC=gcc
 RM=rm -f
 
 # flags
-CFLAGS=-g -std=gnu99 -I../Mastik/src
+CFLAGS=-g -std=gnu99 -I../mastik
 LDFLAGS=-L../src/ -g
 LDLIBS=-lmastik -ldwarf -lelf -lbfd -lm
 
 # targets
-TARGETS=ops.so multiply attack
-OBJS=ops.o multiply.o attack.o
+TARGETS=ops.so io.so multiply attack
+OBJS=ops.o io.o multiply.o attack.o
 
 
 # commands
@@ -27,7 +27,7 @@ multiply:
 	${CC} -o $@ $@.c io.so ops.so 
 
 attack:
-	${CC} ${LDFLAGS} -o $@ $@.c ${LDLIBS}
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $@.c ${LDLIBS}
 	
 clean:
 	${RM} ${TARGETS} ${OBJS}
