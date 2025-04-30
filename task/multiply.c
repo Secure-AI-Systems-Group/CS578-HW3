@@ -50,22 +50,22 @@ int main(int argc, char *argv[])
     // copy the sample data to the memory
     for (size_t fidx = 0; fidx < num_feat; fidx++) {
       size_t didx = sidx * num_feat + fidx;
-      asample[fidx] = simdata[didx];
+      asample[fidx] = op1[didx];
     }
 
     // compute the multiplication
     float* result = NULL;
-    mul2D(&result, asample, 1, num_feat, netparam, h_dim, w_dim);
+    mul2D(&result, asample, 1, num_feat, op2, h_dim, w_dim);
 
+    // free the allocated memory
+    free(result);
   }
 
   /*
-   *  store the timing information
-   *  & free the allocated memory
+   *  free the allocated memory
    */
   free(asample);
   free(op1);
   free(op2);
-  free(result);
   return 0;
 }
