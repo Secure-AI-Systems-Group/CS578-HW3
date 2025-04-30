@@ -20,8 +20,11 @@ all: ${TARGETS}
 ops.so:
 	${CC} ${CFLAGS} ops.c -fPIC -shared -o $@
 
+io.so:
+	${CC} ${CFLAGS} io.c -fPIC -shared -o $@
+
 multiply:
-	${CC} -o $@ $@.c io.c ops.so 
+	${CC} -o $@ $@.c io.so ops.so 
 
 attack:
 	${CC} ${LDFLAGS} -o $@ $@.c ${LDLIBS}
