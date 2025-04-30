@@ -26,12 +26,31 @@ int main(int argc, char *argv[])
   size_t num_feat = 0;
   float* op1 = load_operand1(operand1, &num_data, &num_feat);
 
+  // sanity check
+  if (op1 == NULL) {
+    printf("[multiply] Error: cannot load the first operand\n");
+    free(op1);
+    return -1;
+  }
+  printf("[multiply] successfully load the first operand.\n")
+
+
   /*
    *  load the network parameter
    */
   size_t h_dim = 0;
   size_t w_dim = 0;
   float* op2 = load_operand2(operand2, &h_dim, &w_dim);
+
+  // sanity check
+  if (op2 == NULL) {
+    printf("[multiply] Error: cannot load the second operand\n");
+    free(op1);
+    free(op2);
+    return -1;
+  }
+  printf("[multiply] successfully load the second operand.\n")
+
 
   /*
    *  compute the matrix multiplication
@@ -56,6 +75,16 @@ int main(int argc, char *argv[])
     // compute the multiplication
     float* result = NULL;
     mul2D(&result, asample, 1, num_feat, op2, h_dim, w_dim);
+
+    // sanity check
+    if (op2 == NULL) {
+      printf("[multiply] Error: mul2D does not work, abort\n");
+      free(asample);
+      free(op1);
+      free(op2);    
+      free(result);
+      return -1;
+    }
 
     // free the allocated memory
     free(result);
