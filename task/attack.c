@@ -32,8 +32,8 @@
   * Array of function symbols to monitor
   */
  char *monitor[] = {
-   "_ZN10tensorflow12ConcatBaseOpIN5Eigen16ThreadPoolDeviceEfLNS_16AxisArgumentNameE1EE7ComputeEPNS_15OpKernelContextE",
-   "_ZN10tensorflow14LaunchConv2DOpIN5Eigen16ThreadPoolDeviceEfEclEPNS_15OpKernelContextEbbRKNS_6TensorES8_iiiiRKNS_7PaddingEPS6_NS_12TensorFormatE+128"
+   "mul2D+",
+   "mul2D+128"
  };
  
  /*

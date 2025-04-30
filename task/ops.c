@@ -12,15 +12,15 @@
 void mul2D(
   float** result,
   float* x, size_t xh, size_t xw, \
-  float* w, size_t wh, size_t ww)
+  float* w, size_t yh, size_t yw)
 {
 
   /*
    * Error cases: in multiplication of X * W...
    */
-  if (xw != ww) {
+  if (xw != yw) {
     printf("[mul2D] Error: dimensions should match " \
-           "[x-width: %zd != w-width: %zd]\n", xw, ww);
+           "[x-width: %zd != y-width: %zd]\n", xw, yw);
     exit(1);
   }
 
@@ -28,7 +28,7 @@ void mul2D(
    *  Dimensions of resulting matrices
    *  (Note: W [weight matrix] is already transposed, so consider different edge-lengths)
    */
-  size_t res_size  = xh * wh;
+  size_t res_size  = xh * yh;
 
   /*
    *  Memory allocations for the results
@@ -49,7 +49,7 @@ void mul2D(
   for (i = 0; i < xh; i++)
   {
     float *x_ = x;
-    for (j = 0; j < wh; j++)
+    for (j = 0; j < yh; j++)
     {
 
       /*
@@ -57,7 +57,7 @@ void mul2D(
        *   in the resulting matrix (i-x-j = ij)
        */
       float sum = 0.;
-      for (k = 0; k < ww /* same as xw */; k++) {
+      for (k = 0; k < yw /* same as xw */; k++) {
 
         // multiplications
         sum += x_[k] * w_[k];
@@ -66,10 +66,10 @@ void mul2D(
 
       /*
        *  store the multiplication result,
-       *   and increase the pointer by 'ww'
+       *   and increase the pointer by 'yw'
        */
-      mresult[i*wh + j] = sum;
-      w_ += ww;
+      mresult[i*yh + j] = sum;
+      w_ += yw;
 
     }
     x_ += xw;

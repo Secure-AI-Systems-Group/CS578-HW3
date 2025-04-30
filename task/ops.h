@@ -10,6 +10,6 @@
 void mul2D(
   float** result,
   float* x, size_t xh, size_t xw, \
-  float* w, size_t wh, size_t ww);
+  float* w, size_t yh, size_t yw);
 
 #endif
