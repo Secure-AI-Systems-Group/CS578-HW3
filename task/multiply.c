@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     free(op1);
     return -1;
   }
-  printf("[multiply] successfully load the first operand.\n")
+  printf("[multiply] successfully load the first operand.\n");
 
 
   /*
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     free(op2);
     return -1;
   }
-  printf("[multiply] successfully load the second operand.\n")
+  printf("[multiply] successfully load the second operand.\n");
 
 
   /*
@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
       free(result);
       return -1;
     }
+    printf("[multiply] successfully ran the matrix multiplication.\n");
 
     // free the allocated memory
     free(result);
