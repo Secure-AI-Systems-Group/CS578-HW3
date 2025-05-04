@@ -1,5 +1,4 @@
-io.so
-ops.so
+libops.so
 attack
 multiply
 traces

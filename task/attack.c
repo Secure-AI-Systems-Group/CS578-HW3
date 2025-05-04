@@ -26,13 +26,13 @@
 #define SLOT          2000
 #define THRESHOLD     125
 #define MINTHRESHOLD  0
-#define MAX_IDLE      100000
+#define MAX_IDLE      400000
 
 /*
  * Array of function symbols to monitor
  */
 char *monitor[] = {
-  "mul2D",
+  "mul2D+40",
   "mul2D+80",
 };
 
@@ -40,8 +40,8 @@ char *monitor[] = {
  *  Attributes for the monitored functions
  */
 char *_monitor_attrs[] = {
-  "Multiplication-1",
-  "Multiplication-2",
+  "Multiplication1",
+  "Multiplication2",
 };
 
 
@@ -108,9 +108,9 @@ void access_info(
                 rrow, rcol, res[ridx], _monitor_attrs[rcol]);
       }
       else {
-        // continue;
-        fprintf(csvdata, "%i,%i,%i,miss\n", \
-                rrow, rcol, res[ridx]);
+        continue;
+        // fprintf(csvdata, "%i,%i,%i,miss\n", \
+        //         rrow, rcol, res[ridx]);
       }
     }
   }

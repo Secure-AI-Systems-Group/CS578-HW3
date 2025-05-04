@@ -4,30 +4,34 @@ RM=rm -f
 
 # flags
 CFLAGS=-g -std=gnu99 -I../mastik
-LDFLAGS=-L../src/ -g
-LDLIBS=-lmastik -ldwarf -lelf -lbfd -lm
+LDFLAGS=-L../src/ -L. -g
+LDLIBS=-lmastik -ldwarf -lelf -lbfd -lm -lops
 
-# targets
-TARGETS=ops.so io.so multiply attack
-OBJS=ops.o io.o multiply.o attack.o
+# shared library 
+LIB_OUT=libops.so
+LIBSRCS=ops.c io.c
+LIBOBJS=ops.o io.o
+
+# victim and attack programs
+VIC_OUT=multiply
+VICOBJS=multiply.o
+ATT_OUT=attack
+ATTOBJS=attack.o
 
 
 # commands
 .PHONY: all clean
 
-all: ${TARGETS}
+all: ${LIB_OUT} ${VIC_OUT} ${ATT_OUT}
 
-ops.so:
-	${CC} ${CFLAGS} ops.c -fPIC -shared -o $@
+${LIB_OUT}: ${LIBOBJS}
+	${CC} -fPIC -shared -o $@ $^
 
-io.so:
-	${CC} ${CFLAGS} io.c -fPIC -shared -o $@
+${VIC_OUT}: ${VICOBJS} 
+	${CC} ${LDFLAGS} -o $@ $^ ${LDLIBS}
 
-multiply:
-	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $@.c io.so ops.so ${LDLIBS}
-
-attack:
-	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $@.c ${LDLIBS}
+${ATT_OUT}: ${ATTOBJS}
+	${CC} ${LDFLAGS} -o $@ $@.c ${CFLAGS} ${LDLIBS}
 	
 clean:
-	${RM} ${TARGETS} ${OBJS}
+	${RM} ${LIB_OUT} ${LIBOBJS} ${VIC_OUT} ${VICOBJS} ${ATT_OUT} ${ATTOBJS}
