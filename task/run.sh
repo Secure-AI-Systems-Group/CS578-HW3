@@ -7,7 +7,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
 ./attack traces &
 
 # delay for 1 second 
-sleep 1
+sleep 0.1
 
 # run the victim code
 ./multiply

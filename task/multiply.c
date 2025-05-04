@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <errno.h>
 
 #include <sys/stat.h>
+
+#include <util.h>
 
 #include "io.h"
 #include "ops.h"
@@ -90,8 +93,8 @@ int main(int argc, char *argv[])
     // free the allocated memory
     free(result);
 
-    // run once
-    break;
+    // make a delay
+    delayloop(10000);
   }
 
   /*
