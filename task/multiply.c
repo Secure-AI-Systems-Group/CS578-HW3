@@ -89,6 +89,9 @@ int main(int argc, char *argv[])
 
     // free the allocated memory
     free(result);
+
+    // run once
+    break;
   }
 
   /*
