@@ -22,26 +22,30 @@
  * MAX_IDLE is the amount of time in clock cycles the program will
  * wait before quitting after it's last postive sample.
  */
-#define RECORDS       20000000
+#define RECORDS       100000
 #define SLOT          2000
-#define THRESHOLD     125
+#define THRESHOLD     110
 #define MINTHRESHOLD  0
-#define MAX_IDLE      400000
+#define MAX_IDLE      500
 
 /*
  * Array of function symbols to monitor
  */
 char *monitor[] = {
-  "mul2D+40",
-  "mul2D+80",
+  "ops.c:31",
+  "ops.c:75",
+  "ops.c:71",
+  "ops.c:63",
 };
 
 /*
  *  Attributes for the monitored functions
  */
 char *_monitor_attrs[] = {
-  "Multiplication1",
-  "Multiplication2",
+  "mul2D",
+  "Iteration (i)",
+  "Iteration (j)",
+  "Iteration (k)",
 };
 
 
