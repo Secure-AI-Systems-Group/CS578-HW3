@@ -14,14 +14,14 @@
 #include <stdbool.h>
 
 /*
-* These are the hyperparamters of the attack.
-* Adjust for calibration if needed.
-* RECORDS, SLOT, THRESHOLD, and MINTHRESHOLD should likely
-* stay the same. However, you should run FR-Trace in the
-* Mastik toolkit to find your target machine's correct thresholds.
-* MAX_IDLE is the amount of time in clock cycles the program will
-* wait before quitting after it's last postive sample.
-*/
+ * These are the hyperparamters of the attack.
+ * Adjust for calibration if needed.
+ * RECORDS, SLOT, THRESHOLD, and MINTHRESHOLD should likely
+ * stay the same. However, you should run FR-Trace in the
+ * Mastik toolkit to find your target machine's correct thresholds.
+ * MAX_IDLE is the amount of time in clock cycles the program will
+ * wait before quitting after it's last postive sample.
+ */
 #define RECORDS       20000000
 #define SLOT          2000
 #define THRESHOLD     125
@@ -29,16 +29,16 @@
 #define MAX_IDLE      100000
 
 /*
-* Array of function symbols to monitor
-*/
+ * Array of function symbols to monitor
+ */
 char *monitor[] = {
   "mul2D",
   "mul2D+80",
 };
 
 /*
-*  Attributes for the monitored functions
-*/
+ *  Attributes for the monitored functions
+ */
 char *_monitor_attrs[] = {
   "Multiplication-1",
   "Multiplication-2",
@@ -66,9 +66,9 @@ bool contains(int a, int b[], int size){
 
 
 /*
-* This function analyzes the raw timing data to get the layer patterns of the victim nn.
-* It then outputs these to a file and calls Analysis.py to write them into a readible format.
-*/
+ * This function analyzes the raw timing data to get the layer patterns of the victim nn.
+ * It then outputs these to a file and calls Analysis.py to write them into a readible format.
+ */
 void access_info(
   int l, uint16_t *res,
   char outdir[], char csvfile[], char outfile[]
@@ -108,9 +108,9 @@ void access_info(
                 rrow, rcol, res[ridx], _monitor_attrs[rcol]);
       }
       else {
-        continue;
-        // fprintf(csvdata, "%i,%i,%i,miss\n", \
-        //         rrow, rcol, res[ridx]);
+        // continue;
+        fprintf(csvdata, "%i,%i,%i,miss\n", \
+                rrow, rcol, res[ridx]);
       }
     }
   }
@@ -120,15 +120,15 @@ void access_info(
 }
 
 /*
-* Main: identify the function invocations,
-*       the functions are specified at the top of the file.
-*/
+ * Main: identify the function invocations,
+ *       the functions are specified at the top of the file.
+ */
 int main(int ac, char **av) {
   /*
-  * Initializations:
-  * - Location of the library (.so) file
-  * - Location to store the output file
-  */
+   * Initializations:
+   * - Location of the library (.so) file
+   * - Location to store the output file
+   */
   char *libfile = "ops.so";
   char *outdir = av[1];
   if (outdir == NULL) {
