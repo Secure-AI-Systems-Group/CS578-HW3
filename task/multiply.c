@@ -92,9 +92,6 @@ int main(int argc, char *argv[])
 
     // free the allocated memory
     free(result);
-
-    // make a delay
-    delayloop(10000);
   }
 
   /*

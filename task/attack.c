@@ -22,20 +22,21 @@
  * MAX_IDLE is the amount of time in clock cycles the program will
  * wait before quitting after it's last postive sample.
  */
-#define RECORDS       100000
-#define SLOT          2000
+#define CPU_FREQ      2300000000
+#define SECONDS       4
+#define IDLE_SECONDS  1.0
+
+#define RECORDS       CPU_FREQ / SLOT * SECONDS
+#define SLOT          2500
 #define THRESHOLD     110
 #define MINTHRESHOLD  0
-#define MAX_IDLE      500
+#define MAX_IDLE      CPU_FREQ / SLOT * IDLE_SECONDS 
 
 /*
  * Array of function symbols to monitor
  */
 char *monitor[] = {
   "ops.c:31",
-  "ops.c:75",
-  "ops.c:71",
-  "ops.c:63",
 };
 
 /*
@@ -43,9 +44,6 @@ char *monitor[] = {
  */
 char *_monitor_attrs[] = {
   "mul2D",
-  "Iteration (i)",
-  "Iteration (j)",
-  "Iteration (k)",
 };
 
 
@@ -112,9 +110,9 @@ void access_info(
                 rrow, rcol, res[ridx], _monitor_attrs[rcol]);
       }
       else {
-        continue;
-        // fprintf(csvdata, "%i,%i,%i,miss\n", \
-        //         rrow, rcol, res[ridx]);
+        // continue;
+        fprintf(csvdata, "%i,%i,%i,miss\n", \
+                rrow, rcol, res[ridx]);
       }
     }
   }
@@ -133,7 +131,7 @@ int main(int ac, char **av) {
    * - Location of the library (.so) file
    * - Location to store the output file
    */
-  char *libfile = "ops.so";
+  char *libfile = "libops.so";
   char *outdir = av[1];
   if (outdir == NULL) {
     printf("Error: specify the location of the output folder\n");
